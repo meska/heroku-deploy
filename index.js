@@ -30,7 +30,7 @@ async function buildPushAndDeploy() {
     await exec(`cd ${dockerFilePath} && ` + herokuAction('push'));
     console.log('Container pushed to Heroku Container Registry ⏫');
 
-    await exec(`cd ${dockerFilePath} && + `herokuAction('release'));
+    await exec(`cd ${dockerFilePath} && ` + herokuAction('release'));
     console.log('App Deployed successfully 🚀');
   } catch (error) {
     core.setFailed(`Something went wrong building your image. Error: ${error.message}`);
