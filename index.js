@@ -22,15 +22,15 @@ async function buildPushAndDeploy() {
   const herokuAction = herokuActionSetUp(appName);
   
   try {
-    await exec(`cd ${dockerFilePath}`);
+    // await exec(`cd ${dockerFilePath}`);
 
-    await exec(`docker build . --file Dockerfile ${buildOptions} --tag registry.heroku.com/${appName}/web`);
+    await exec(`cd ${dockerFilePath} && docker build . --file Dockerfile ${buildOptions} --tag registry.heroku.com/${appName}/web`);
     console.log('Image built 🛠');
 
-    await exec(herokuAction('push'));
+    await exec(`cd ${dockerFilePath} && ` + herokuAction('push'));
     console.log('Container pushed to Heroku Container Registry ⏫');
 
-    await exec(herokuAction('release'));
+    await exec(`cd ${dockerFilePath} && + `herokuAction('release'));
     console.log('App Deployed successfully 🚀');
   } catch (error) {
     core.setFailed(`Something went wrong building your image. Error: ${error.message}`);
